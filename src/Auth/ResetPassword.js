@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import auth from '../Firebase/Firebase.init';
 import Loading from '../Frontend/Loading/Loading';
+import Loader from '../Shared/Loader';
 import SocialLogin from './SocialLogin';
 
 const ResetPassword = () => {
@@ -18,9 +19,9 @@ const ResetPassword = () => {
         navigate(from, { replace: true });
     }
 
-    // if (sending) {
-    //     return <Loading></Loading>;
-    // }
+    if (sending) {
+        return <Loader/>
+    }
 
     return (
         <section className="h-screen">

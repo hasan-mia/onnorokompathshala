@@ -3,6 +3,7 @@ import { useAuthState, useSendEmailVerification } from 'react-firebase-hooks/aut
 import { Navigate, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import auth from '../Firebase/Firebase.init';
+import Loader from '../Shared/Loader';
 // import Loading from '../Frontend/Loading/Loading';
 
 const RequireAuth = ({ children }) => {
@@ -31,9 +32,9 @@ const RequireAuth = ({ children }) => {
         }
     }, [errors]);
 
-    // if (loading || sending) {
-    //     return <Loading></Loading>
-    // }
+    if (loading || sending) {
+        return <Loader/>
+    }
 
     if (user) {
         return children;

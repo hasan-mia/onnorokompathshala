@@ -9,14 +9,14 @@ const Sidebars = () => {
                 <Sidebar aria-label="Sidebar with multi-level dropdown example">
                     <Sidebar.Items>
                         <Sidebar.ItemGroup>
-                            <Sidebar.Item href="#" icon={HiChartPie}>
+                            <Sidebar.Item href="/admin" icon={HiChartPie}>
                                 Dashboard
                             </Sidebar.Item>
                             <Sidebar.Collapse icon={HiVideoCamera} label="Video">
-                                <Sidebar.Item icon={HiArrowSmRight} href="#">
+                                <Sidebar.Item icon={HiArrowSmRight} href="/admin/video">
                                     All video
                                 </Sidebar.Item>
-                                <Sidebar.Item icon={HiPlus} href="#">
+                                <Sidebar.Item icon={HiPlus} href="/admin/add-video">
                                     Add video
                                 </Sidebar.Item>
 
