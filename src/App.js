@@ -1,9 +1,13 @@
-import Header from './Frontend/components/Header';
+import Footers from './Frontend/components/Footers';
+import Headers from './Frontend/components/Headers';
+import Home from './Frontend/pages/Home';
 
 function App() {
   return (
     <>
-      <Header></Header>
+      <Headers></Headers>
+      <Home></Home>
+      <Footers></Footers>
     </>
   );
 }
