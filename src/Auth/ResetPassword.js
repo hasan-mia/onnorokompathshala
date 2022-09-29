@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { useSendPasswordResetEmail } from 'react-firebase-hooks/auth';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import auth from '../Firebase/Firebase.init';
-import Loading from '../Frontend/Loading/Loading';
+import auth from '../Firebase/Firebase';
 import Loader from '../Shared/Loader';
 import SocialLogin from './SocialLogin';
 

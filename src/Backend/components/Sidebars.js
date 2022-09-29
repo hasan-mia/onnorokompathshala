@@ -4,19 +4,19 @@ import { HiChartPie, HiVideoCamera, HiInbox, HiUser, HiArrowSmRight, HiPlus} fro
 
 const Sidebars = () => {
     return (
-        <asside>
+        <asside className="hidden lg:block">
             <div className="w-fit bg-gray-50">
                 <Sidebar aria-label="Sidebar with multi-level dropdown example">
                     <Sidebar.Items>
                         <Sidebar.ItemGroup>
-                            <Sidebar.Item href="/admin" icon={HiChartPie}>
+                            <Sidebar.Item href="/dashboard" icon={HiChartPie}>
                                 Dashboard
                             </Sidebar.Item>
                             <Sidebar.Collapse icon={HiVideoCamera} label="Video">
-                                <Sidebar.Item icon={HiArrowSmRight} href="/admin/video">
+                                <Sidebar.Item icon={HiArrowSmRight} href="/dashboard/video">
                                     All video
                                 </Sidebar.Item>
-                                <Sidebar.Item icon={HiPlus} href="/admin/add-video">
+                                <Sidebar.Item icon={HiPlus} href="/dashboard/add-video">
                                     Add video
                                 </Sidebar.Item>
 

@@ -2,9 +2,8 @@ import React, { useEffect } from 'react';
 import { useAuthState, useSendEmailVerification } from 'react-firebase-hooks/auth';
 import { Navigate, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import auth from '../Firebase/Firebase.init';
+import auth from '../Firebase/Firebase';
 import Loader from '../Shared/Loader';
-// import Loading from '../Frontend/Loading/Loading';
 
 const RequireAuth = ({ children }) => {
     const [user, loading] = useAuthState(auth);
@@ -39,7 +38,7 @@ const RequireAuth = ({ children }) => {
     if (user) {
         return children;
     } else {
-        return <Navigate to="/signin" state={{ from: location }} replace />
+        return <Navigate to="/login" state={{ from: location }} replace />
     }
 };
 

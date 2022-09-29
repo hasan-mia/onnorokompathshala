@@ -1,13 +1,21 @@
 import React from 'react';
-import { Avatar, Dropdown, Navbar, TextInput } from 'flowbite-react';
+import { Avatar, Dropdown, Navbar, Sidebar, TextInput } from 'flowbite-react';
 import { Link } from "react-router-dom";
 import { VscSearch } from 'react-icons/vsc';
 import logo from '../assets/logo.png';
-import user from '../assets/hasan.png'
+import { FaUserNurse } from 'react-icons/fa';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from '../../Firebase/Firebase';
+import { signOut } from 'firebase/auth';
+import { HiUser } from 'react-icons/hi';
 
 const Headers = () => {
+    const [user] = useAuthState(auth)
+    console.log(user)
     return (
         <header className='border-b border-gray-200 m-0 py-0 px-2 lg:px-3'>
+
+            {/* ====FrontEnd Navbar=== */}
             <Navbar fluid={true} rounded={true}>
                 <Navbar.Brand href='/'>
                     <img src={logo} className="mr-3 w-24" alt="onnorokom pathshala Logo" />
@@ -16,16 +24,34 @@ const Headers = () => {
                     <div className='hidden lg:block'>
                         <TextInput type="text" placeholder="search here.." required={true} icon={VscSearch} />
                     </div>
-                    <Dropdown arrowIcon={false} inline={true} label={<Avatar alt="User settings" img={user} rounded={true} />}>
+                    <Dropdown arrowIcon={false} inline={true} label={<Avatar alt="User settings" icon={HiUser} rounded={true} />}>
                         <Dropdown.Header>
-                            <span className="block text-sm">Md. Hasan Mia</span>
-                            <span className="block truncate text-sm font-medium">info.hasanmiah@gmail.com</span>
+                            {
+                                !user ?
+                                    <span>Please login</span>
+                                    :
+
+                                    user?.displayName ?
+                                        <>
+                                            <span className="block text-sm">{user?.displayName}</span>
+                                            <span className="block truncate text-sm font-medium">{user?.email}</span>
+                                        </>
+                                        :
+                                        <span className="block truncate text-sm font-medium">{user?.email}</span>
+
+                            }
+
                         </Dropdown.Header>
-                        <Dropdown.Item>Dashboard</Dropdown.Item>
-                        <Dropdown.Item>Settings</Dropdown.Item>
-                        <Dropdown.Item>Earnings</Dropdown.Item>
+                        <Dropdown.Item><Link to="/dashboard">Dashboard</Link></Dropdown.Item>
                         <Dropdown.Divider />
-                        <Dropdown.Item>Sign out</Dropdown.Item>
+                        <Dropdown.Item>
+                            {
+                                !user ?
+                                    <Link to="/login" className="">Login</Link>
+                                    :
+                                    <span onClick={() => signOut(auth)} className="">Logout</span>
+                            }
+                        </Dropdown.Item>
                     </Dropdown>
                     <Navbar.Toggle />
                 </div>
@@ -40,6 +66,46 @@ const Headers = () => {
                     <Navbar.Link href="/navbars"><span className='text-md lg:text-xl'>Contact</span></Navbar.Link>
                 </Navbar.Collapse>
             </Navbar>
+
+            {/* =====Backend Navbar==== */}
+            {/* <div>
+                <Navbar fluid={true} rounded={true}>
+                    <Navbar.Brand href='/'>
+                        <img src={logo} className="mr-3 w-24" alt="onnorokom pathshala Logo" />
+                    </Navbar.Brand>
+                    
+                    <div className='flex-inline block lg:hidden'>
+                        <Navbar.Collapse>
+                            <Sidebar aria-label="Sidebar with multi-level dropdown example">
+                                <Sidebar.Items>
+                                    <Sidebar.ItemGroup>
+                                        <Sidebar.Item href="/admin" icon={HiChartPie}>
+                                            Dashboard
+                                        </Sidebar.Item>
+                                        <Sidebar.Collapse icon={HiVideoCamera} label="Video">
+                                            <Sidebar.Item icon={HiArrowSmRight} href="/admin/video">
+                                                All video
+                                            </Sidebar.Item>
+                                            <Sidebar.Item icon={HiPlus} href="/admin/add-video">
+                                                Add video
+                                            </Sidebar.Item>
+
+                                        </Sidebar.Collapse>
+                                        <Sidebar.Item href="#" icon={HiInbox}>
+                                            Inbox
+                                        </Sidebar.Item>
+                                        <Sidebar.Item href="#" icon={HiUser}>
+                                            Users
+                                        </Sidebar.Item>
+
+                                    </Sidebar.ItemGroup>
+                                </Sidebar.Items>
+                            </Sidebar>
+                        </Navbar.Collapse>
+                    </div>
+                    <Navbar.Toggle />
+                </Navbar>
+            </div> */}
         </header>
     );
 };

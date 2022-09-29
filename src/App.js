@@ -6,6 +6,8 @@ import Dashboard from "./Backend/Dashboard";
 import Footers from './Frontend/components/Footers';
 import Headers from './Frontend/components/Headers';
 import Home from './Frontend/pages/Home';
+import Signin from "./Auth/Signin";
+import RequireAuth from "./Auth/RequireAuth";
 
 function App() {
   return (
@@ -16,12 +18,13 @@ function App() {
                     Frontend Routes
         ==================================*/}
         <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Signin />} />
 
 
         {/* =================================
                     Backend Routes
         ==================================*/}
-        <Route path="/admin" element={<Dashboard />}>
+        <Route path="/dashboard" element={<RequireAuth><Dashboard /></RequireAuth>}>
           <Route index element={<AdminHome/>}></Route>
           <Route path="video" element={<AllVideo />} /> 
           <Route path="add-video" element={<AddVideo />} /> 

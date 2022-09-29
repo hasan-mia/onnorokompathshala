@@ -6,7 +6,7 @@ const Dashboard = () => {
     return (
         <main className='min-h-screen'>
             <div className="w-full flex flex-col lg:flex-row">
-                <div className='w-full lg:w-2/12 hidden lg:block'>
+                <div className='w-full lg:w-2/12'>
                     <Sidebars></Sidebars>
                 </div>
 

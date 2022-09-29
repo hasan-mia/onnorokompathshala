@@ -7,8 +7,9 @@ const AddVideo = () => {
             <form className="grid grid-cols-1 gap-2 my-4">
                 <input type="text" placeholder='Add title' className='p-2' />
                 <textarea type="text" rows={6} className='p-4' placeholder='Description'></textarea>
-                <div className='text-right'>
-                    <button className='p-2 bg-green-600 text-white text-xl uppercase w-1/4'>Submit</button>
+                <div className='grid grid-cols-1 lg:grid-cols-2 gap-2'>
+                    <input type="text" placeholder='Add Link' className='p-2' />
+                    <button className='p-2 bg-green-600 text-white text-xl uppercase'>Submit</button>
                 </div>
             </form>
         </div>
