@@ -1,9 +1,8 @@
 import React from 'react';
-import { Avatar, Dropdown, Navbar, Sidebar, TextInput } from 'flowbite-react';
+import { Avatar, Dropdown, Navbar, TextInput } from 'flowbite-react';
 import { Link } from "react-router-dom";
 import { VscSearch } from 'react-icons/vsc';
 import logo from '../assets/logo.png';
-import { FaUserNurse } from 'react-icons/fa';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../Firebase/Firebase';
 import { signOut } from 'firebase/auth';
@@ -60,10 +59,10 @@ const Headers = () => {
                         <TextInput type="text" placeholder="search here.." required={true} icon={VscSearch} />
                     </div>
                     <Navbar.Link href="/"> <span className='text-md lg:text-xl'>Home</span> </Navbar.Link>
-                    <Navbar.Link href="/navbars"><span className='text-md lg:text-xl'>Video</span></Navbar.Link>
-                    <Navbar.Link href="/navbars"><span className='text-md lg:text-xl'>Course</span></Navbar.Link>
-                    <Navbar.Link href="/navbars"><span className='text-md lg:text-xl'>About</span></Navbar.Link>
-                    <Navbar.Link href="/navbars"><span className='text-md lg:text-xl'>Contact</span></Navbar.Link>
+                    <Navbar.Link href="/"><span className='text-md lg:text-xl'>Video</span></Navbar.Link>
+                    <Navbar.Link href="/"><span className='text-md lg:text-xl'>Course</span></Navbar.Link>
+                    <Navbar.Link href="/"><span className='text-md lg:text-xl'>About</span></Navbar.Link>
+                    <Navbar.Link href="/"><span className='text-md lg:text-xl'>Contact</span></Navbar.Link>
                 </Navbar.Collapse>
             </Navbar>
 

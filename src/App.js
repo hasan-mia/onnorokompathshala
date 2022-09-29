@@ -8,8 +8,11 @@ import Headers from './Frontend/components/Headers';
 import Home from './Frontend/pages/Home';
 import Signin from "./Auth/Signin";
 import RequireAuth from "./Auth/RequireAuth";
+import useVideo from "./Hooks/useVideo";
 
 function App() {
+  const {videos} = useVideo();
+  console.log(videos)
   return (
     <>
       <Headers></Headers>
