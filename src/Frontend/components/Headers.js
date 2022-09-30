@@ -10,7 +10,6 @@ import { HiUser } from 'react-icons/hi';
 
 const Headers = () => {
     const [user] = useAuthState(auth)
-    console.log(user)
     return (
         <header className='border-b border-gray-200 m-0 py-0 px-2 lg:px-3'>
 
@@ -42,7 +41,6 @@ const Headers = () => {
 
                         </Dropdown.Header>
                         <Dropdown.Item><Link to="/dashboard">Dashboard</Link></Dropdown.Item>
-                        <Dropdown.Divider />
                         <Dropdown.Item>
                             {
                                 !user ?

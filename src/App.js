@@ -8,13 +8,15 @@ import Headers from './Frontend/components/Headers';
 import Home from './Frontend/pages/Home';
 import Signin from "./Auth/Signin";
 import RequireAuth from "./Auth/RequireAuth";
-import useVideo from "./Hooks/useVideo";
+import useVideos from "./Hooks/useVideos";
+import { createContext} from "react";
+
+export const videoContext = createContext();
 
 function App() {
-  const {videos} = useVideo();
-  console.log(videos)
+  const {videos}=useVideos();
   return (
-    <>
+    <videoContext.Provider>
       <Headers></Headers>
       <Routes>
         {/* =================================
@@ -34,8 +36,11 @@ function App() {
         </Route>
       </Routes>
       <Footers></Footers>
-    </>
+    </videoContext.Provider>
   );
 }
 
 export default App;
+
+
+

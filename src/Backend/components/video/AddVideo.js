@@ -36,7 +36,7 @@ const AddVideo = () => {
                     }
 
                     // Send to your database 
-                    fetch('http://localhost:5000/video', {
+                    fetch('http://localhost:5001/video', {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json',
