@@ -32,7 +32,7 @@ const LikeDislike = ({ videoId, apiKey, likes, dislikes }) => {
             // console.log('Match Name:', liked)
             if (!liked) {
                 // Send to your database 
-                fetch(`http://localhost:5001/video/${videoId}/like`, {
+                fetch(`https://onnorokompathshala.herokuapp.com/video/${videoId}/like`, {
                     method: 'PUT',
                     headers: {
                         'content-type': 'application/json',
@@ -69,7 +69,7 @@ const LikeDislike = ({ videoId, apiKey, likes, dislikes }) => {
             // console.log('Match Name:', liked)
             if (!disliked) {
                 // Send to your database 
-                fetch(`http://localhost:5001/video/${videoId}/dislike`, {
+                fetch(`https://onnorokompathshala.herokuapp.com/video/${videoId}/dislike`, {
                     method: 'PUT',
                     headers: {
                         'content-type': 'application/json',
