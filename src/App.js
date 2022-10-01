@@ -10,19 +10,24 @@ import Signin from "./Auth/Signin";
 import RequireAuth from "./Auth/RequireAuth";
 import useVideos from "./Hooks/useVideos";
 import { createContext} from "react";
-
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import SigngleVideo from "./Frontend/components/SigngleVideo";
+// video context
 export const videoContext = createContext();
 
 function App() {
+  // all videos
   const {videos}=useVideos();
   return (
-    <videoContext.Provider>
+    <videoContext.Provider value={{videos}}>
       <Headers></Headers>
       <Routes>
         {/* =================================
                     Frontend Routes
         ==================================*/}
         <Route path="/" element={<Home />} />
+        <Route path="/video/:id" element={<SigngleVideo />} />
         <Route path="/login" element={<Signin />} />
 
 
@@ -35,6 +40,7 @@ function App() {
           <Route path="add-video" element={<AddVideo />} /> 
         </Route>
       </Routes>
+      <ToastContainer/>
       <Footers></Footers>
     </videoContext.Provider>
   );

@@ -1,10 +1,10 @@
 import React from 'react';
-import Video from '../components/Video';
+import Videos from '../components/Videos';
 
 const Home = () => {
     return (
         <main className='min-h-screen px-2 lg:px-8'>
-            <Video></Video>
+           <Videos></Videos>
         </main>
     );
 };

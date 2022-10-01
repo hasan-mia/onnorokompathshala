@@ -1,7 +1,10 @@
 import { Table } from 'flowbite-react';
-import React from 'react';
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
+import { videoContext } from '../../../App';
 
 const AllVideo = () => {
+    const { videos } = useContext(videoContext);
     return (
         <div className='my-4 px-0 lg:px-2'>
             <h1 className='text-center text-md lg:text-2xl py-2 font-semibold uppercase text-white bg-purple-600'>All Video</h1>
@@ -11,10 +14,10 @@ const AllVideo = () => {
                         Title
                     </Table.HeadCell>
                     <Table.HeadCell>
-                        Link
+                        Video ID
                     </Table.HeadCell>
                     <Table.HeadCell>
-                        User
+                        API KEY
                     </Table.HeadCell>
                     <Table.HeadCell>
                         Edit
@@ -24,63 +27,33 @@ const AllVideo = () => {
                     </Table.HeadCell>
                 </Table.Head>
                 <Table.Body className="divide-y">
-                    <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                        <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                            Apple MacBook Pro 17"
-                        </Table.Cell>
-                        <Table.Cell>
-                            Sliver
-                        </Table.Cell>
-                        <Table.Cell>
-                            Laptop
-                        </Table.Cell>
-                        <Table.Cell>
-                            $2999
-                        </Table.Cell>
-                        <Table.Cell>
-                            <a href="/tables" className="font-medium text-blue-600 hover:underline dark:text-blue-500">
-                                Edit
-                            </a>
-                        </Table.Cell>
-                    </Table.Row>
-                    <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                        <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                            Microsoft Surface Pro
-                        </Table.Cell>
-                        <Table.Cell>
-                            White
-                        </Table.Cell>
-                        <Table.Cell>
-                            Laptop PC
-                        </Table.Cell>
-                        <Table.Cell>
-                            $1999
-                        </Table.Cell>
-                        <Table.Cell>
-                            <a href="/tables" className="font-medium text-blue-600 hover:underline dark:text-blue-500">
-                                Edit
-                            </a>
-                        </Table.Cell>
-                    </Table.Row>
-                    <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                        <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                            Magic Mouse 2
-                        </Table.Cell>
-                        <Table.Cell>
-                            Black
-                        </Table.Cell>
-                        <Table.Cell>
-                            Accessories
-                        </Table.Cell>
-                        <Table.Cell>
-                            $99
-                        </Table.Cell>
-                        <Table.Cell>
-                            <a href="/tables" className="font-medium text-blue-600 hover:underline dark:text-blue-500">
-                                Edit
-                            </a>
-                        </Table.Cell>
-                    </Table.Row>
+                    {
+                        videos?.reverse().map(video =>
+                            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                    {video?.title}
+                                </Table.Cell>
+                                <Table.Cell>
+                                {video?.videoId}
+                                </Table.Cell>
+                                <Table.Cell>
+                                {video?.apiKey}
+                                </Table.Cell>
+                                <Table.Cell>
+                                    <Link to="/dashboard" className="font-medium text-blue-600 hover:underline dark:text-blue-500">
+                                        Edit
+                                    </Link>
+                                </Table.Cell>
+                                <Table.Cell>
+                                    <Link to="/dashboard" className="font-medium text-blue-600 hover:underline dark:text-blue-500">
+                                        Delete
+                                    </Link>
+                                </Table.Cell>
+                            </Table.Row>
+                        )
+                    }
+
+
                 </Table.Body>
             </Table>
         </div>
