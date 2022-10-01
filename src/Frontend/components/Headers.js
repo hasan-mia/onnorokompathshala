@@ -22,25 +22,28 @@ const Headers = () => {
                     <div className='hidden lg:block'>
                         <TextInput type="text" placeholder="search here.." required={true} icon={VscSearch} />
                     </div>
-                    <Dropdown arrowIcon={false} inline={true} label={<Avatar alt="User settings" icon={HiUser} rounded={true} />}>
-                        <Dropdown.Header>
+                    <Dropdown inline={true}
+                        label={<Avatar alt="User settings" icon={HiUser} rounded={true} />}
+                    >
+                        <Dropdown.Item>
                             {
                                 !user ?
                                     <span>Please login</span>
                                     :
 
                                     user?.displayName ?
-                                        <>
-                                            <span className="block text-sm">{user?.displayName}</span>
-                                            <span className="block truncate text-sm font-medium">{user?.email}</span>
-                                        </>
+                                        <div className='grid gap-2'>
+                                            <p className='font-semibold'>{user?.displayName}</p>
+                                            <p>{user?.email}</p>
+                                        </div>
                                         :
-                                        <span className="block truncate text-sm font-medium">{user?.email}</span>
+                                        <p>{user?.email}</p>
 
                             }
-
-                        </Dropdown.Header>
-                        <Dropdown.Item><Link to="/dashboard">Dashboard</Link></Dropdown.Item>
+                        </Dropdown.Item>
+                        <Dropdown.Item>
+                            <Link to="/dashboard">Dashboard</Link>
+                        </Dropdown.Item>
                         <Dropdown.Item>
                             {
                                 !user ?

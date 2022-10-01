@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import AddVideo from "./Backend/components/video/AddVideo";
 import AllVideo from "./Backend/components/video/AllVideo";
-import AdminHome from "./Backend/components/AdminHome";
+// import AdminHome from "./Backend/components/AdminHome";
 import Dashboard from "./Backend/Dashboard";
 import Footers from './Frontend/components/Footers';
 import Headers from './Frontend/components/Headers';
@@ -13,14 +13,15 @@ import { createContext} from "react";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import SigngleVideo from "./Frontend/components/SigngleVideo";
+import EditVideo from "./Backend/components/video/EditVideo";
 // video context
 export const videoContext = createContext();
 
 function App() {
   // all videos
-  const {videos}=useVideos();
+  const {videos, isLoad, setIsLoad}=useVideos();
   return (
-    <videoContext.Provider value={{videos}}>
+    <videoContext.Provider value={{videos, isLoad, setIsLoad}}>
       <Headers></Headers>
       <Routes>
         {/* =================================
@@ -35,9 +36,10 @@ function App() {
                     Backend Routes
         ==================================*/}
         <Route path="/dashboard" element={<RequireAuth><Dashboard /></RequireAuth>}>
-          <Route index element={<AdminHome/>}></Route>
+          <Route index element={<AllVideo/>}></Route>
           <Route path="video" element={<AllVideo />} /> 
-          <Route path="add-video" element={<AddVideo />} /> 
+          <Route path="add-video" element={<AddVideo />} />
+          <Route path="edit-video/:id" element={<EditVideo />} /> 
         </Route>
       </Routes>
       <ToastContainer/>

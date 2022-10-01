@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import { toast } from 'react-toastify';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../../Firebase/Firebase';
+import Loader from '../../../Shared/Loader';
 
 const AddVideo = () => {
     const [user] = useAuthState(auth);
+    const [isLoad, setIsLoad] = useState(false)
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
 
     const videoAdded = async (data) => {
@@ -30,8 +32,8 @@ const AddVideo = () => {
             body: JSON.stringify(video)
         })
             .then(res => res.json())
-            .then(inserted => {
-                if (inserted.insertedId) {
+            .then(data => {
+                if (data.insertedId) {
                     toast.success('video upoload successfully')
                     reset();
                 }
@@ -40,6 +42,9 @@ const AddVideo = () => {
                 }
             })
 
+    }
+    if(isLoad){
+        return <Loader></Loader>
     }
     return (
         <div className='my-4 px-0 lg:px-2'>

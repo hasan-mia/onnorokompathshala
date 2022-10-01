@@ -2,14 +2,16 @@ import { Table } from 'flowbite-react';
 import React, { useContext } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { videoContext } from '../../../App';
 import auth from '../../../Firebase/Firebase';
+import Loader from '../../../Shared/Loader';
 
 const AllVideo = () => {
     const [user] = useAuthState(auth);
-    const { videos } = useContext(videoContext);
+    const updateVideo = useNavigate();
+    const { videos, isLoad, setIsLoad } = useContext(videoContext);
     // filter video by user
     const yourVideo = videos?.filter(item => item?.email == user?.email)
 
@@ -28,10 +30,14 @@ const AllVideo = () => {
         .then(res => res.json())
         .then(data =>{
             if(data.deletedCount > 0){
+                setIsLoad(true)
                 toast.success("Deleted success");
             }
         })
 
+    }
+    if(isLoad){
+        return <Loader/>
     }
     return (
         <div className='my-4 px-0 lg:px-2'>
@@ -75,7 +81,7 @@ const AllVideo = () => {
                                             {video?.apiKey}
                                         </Table.Cell>
                                         <Table.Cell>
-                                            <button onClick={() => handleEdit(`${video?._id}`)}><AiFillEdit className='text-2xl text-green-500' /></button>
+                                            <button onClick={()=>updateVideo(`/dashboard/edit-video/${video._id}`)} ><AiFillEdit className='text-2xl text-green-500' /></button>
                                         </Table.Cell>
                                         <Table.Cell>
                                             <button onClick={() => handleDelete(`${video?._id}`)}><AiFillDelete className='text-2xl text-red-500' /></button>

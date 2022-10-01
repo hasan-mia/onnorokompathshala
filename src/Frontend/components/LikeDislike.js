@@ -9,9 +9,9 @@ const LikeDislike = ({ videoId, apiKey, likes, dislikes }) => {
     const [user] = useAuthState(auth);
     const [btnData, setBtnData] = useState();
     // like state
-    const [like, setLikes] = useState([0]);
+    // const [like, setLikes] = useState([0]);
     // dislike state
-    const [disLike, setDislike] = useState([0]);
+    // const [disLike, setDislike] = useState([0]);
 
     // console.log(likes, dislikes)
     //fetch youtube data
@@ -83,7 +83,7 @@ const LikeDislike = ({ videoId, apiKey, likes, dislikes }) => {
             <div className="flex justify-between border-t border-gray-200 pt-2">
                 <div className='flex items-center gap-4 lg:gap-10 px-2'>
                     <button onClick={() => { handleLike(`${user?.displayName}`) }} className='flex items-center gap-2'><span className='text-xl'>{likes?.length}</span> <HiOutlineThumbUp className='text-2xl' /> </button>
-                    <button onClick={() => { handleDisLike() }} className='flex items-center gap-2'><span className='text-xl'>{disLike?.length}</span> <HiOutlineThumbDown className='text-2xl' /> </button>
+                    <button onClick={() => { handleDisLike(`${user?.displayName}`) }} className='flex items-center gap-2'><span className='text-xl'>{dislikes?.length}</span> <HiOutlineThumbDown className='text-2xl' /> </button>
                 </div>
                 <button onClick={() => { viewDetails() }} className='flex items-center gap-2'><span className='text-xl'><FcViewDetails className='text-2xl text-gray-600' /></span></button>
             </div>
