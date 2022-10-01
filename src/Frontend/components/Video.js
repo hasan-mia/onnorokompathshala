@@ -36,6 +36,8 @@ const Video = () => {
           <LikeDislike
             videoId={video.videoId}
             apiKey={video.apiKey}
+            likes={video.likes}
+            dislikes={video.dislikes}
           />
         </div>
       )}
