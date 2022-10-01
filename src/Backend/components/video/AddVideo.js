@@ -14,10 +14,8 @@ const AddVideo = () => {
             description: data.description,
             videoId: data.videoId,
             apiKey: data.apiKey,
-            likes: [0],
-            dislikes: [0],
-            likeUser: [''],
-            dislikeUser: [''],
+            likes: [],
+            dislikes: [],
             email: user?.email,
             author: user?.displayName
         }

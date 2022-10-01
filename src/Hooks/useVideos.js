@@ -7,7 +7,7 @@ const useVideos = () => {
 		fetch('http://localhost:5001/videos')
 		.then((res) => res.json())
         .then((data) => setVideos(data, setIsLoad(false)));
-    }, [isLoad])
+    }, [videos, isLoad])
 
     return {videos, setVideos, isLoad, setIsLoad}
 };

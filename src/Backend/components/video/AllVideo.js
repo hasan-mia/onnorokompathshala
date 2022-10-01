@@ -1,61 +1,93 @@
 import { Table } from 'flowbite-react';
 import React, { useContext } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { videoContext } from '../../../App';
+import auth from '../../../Firebase/Firebase';
 
 const AllVideo = () => {
+    const [user] = useAuthState(auth);
     const { videos } = useContext(videoContext);
+    // filter video by user
+    const yourVideo = videos?.filter(item => item?.email == user?.email)
+
+    // Edit handler
+    const handleEdit = (id) => {
+
+    }
+    // Delete handler
+    const handleDelete = (id) => {
+        fetch(`http://localhost:5001/video/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'content-type': 'application/json',
+            }
+        })
+        .then(res => res.json())
+        .then(data =>{
+            if(data.deletedCount > 0){
+                toast.success("Deleted success");
+            }
+        })
+
+    }
     return (
         <div className='my-4 px-0 lg:px-2'>
             <h1 className='text-center text-md lg:text-2xl py-2 font-semibold uppercase text-white bg-purple-600'>All Video</h1>
-            <Table hoverable={true}>
-                <Table.Head>
-                    <Table.HeadCell>
-                        Title
-                    </Table.HeadCell>
-                    <Table.HeadCell>
-                        Video ID
-                    </Table.HeadCell>
-                    <Table.HeadCell>
-                        API KEY
-                    </Table.HeadCell>
-                    <Table.HeadCell>
-                        Edit
-                    </Table.HeadCell>
-                    <Table.HeadCell>
-                        Delete
-                    </Table.HeadCell>
-                </Table.Head>
-                <Table.Body className="divide-y">
-                    {
-                        videos?.reverse().map(video =>
-                            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                    {video?.title}
-                                </Table.Cell>
-                                <Table.Cell>
-                                {video?.videoId}
-                                </Table.Cell>
-                                <Table.Cell>
-                                {video?.apiKey}
-                                </Table.Cell>
-                                <Table.Cell>
-                                    <Link to="/dashboard" className="font-medium text-blue-600 hover:underline dark:text-blue-500">
-                                        Edit
-                                    </Link>
-                                </Table.Cell>
-                                <Table.Cell>
-                                    <Link to="/dashboard" className="font-medium text-blue-600 hover:underline dark:text-blue-500">
-                                        Delete
-                                    </Link>
-                                </Table.Cell>
-                            </Table.Row>
-                        )
-                    }
+            {
+                yourVideo.length == 0 ?
+                    // if video array is null
+                    <h1 className='text-center text-3xl text-red-600 pt-6'>You don't upload video yet</h1>
+                    :
+                    // if video array is not null
+                    <Table hoverable={true}>
+                        <Table.Head>
+                            <Table.HeadCell>
+                                Title
+                            </Table.HeadCell>
+                            <Table.HeadCell>
+                                Video ID
+                            </Table.HeadCell>
+                            <Table.HeadCell>
+                                API KEY
+                            </Table.HeadCell>
+                            <Table.HeadCell>
+                                Edit
+                            </Table.HeadCell>
+                            <Table.HeadCell>
+                                Delete
+                            </Table.HeadCell>
+                        </Table.Head>
 
+                        <Table.Body className="divide-y">
+                            {
+                                yourVideo?.reverse().map(video =>
+                                    <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                        <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                            {video?.title}
+                                        </Table.Cell>
+                                        <Table.Cell>
+                                            {video?.videoId}
+                                        </Table.Cell>
+                                        <Table.Cell>
+                                            {video?.apiKey}
+                                        </Table.Cell>
+                                        <Table.Cell>
+                                            <button onClick={() => handleEdit(`${video?._id}`)}><AiFillEdit className='text-2xl text-green-500' /></button>
+                                        </Table.Cell>
+                                        <Table.Cell>
+                                            <button onClick={() => handleDelete(`${video?._id}`)}><AiFillDelete className='text-2xl text-red-500' /></button>
+                                        </Table.Cell>
+                                    </Table.Row>
+                                )
+                            }
 
-                </Table.Body>
-            </Table>
+                        </Table.Body>
+
+                    </Table>
+            }
         </div>
     );
 };
