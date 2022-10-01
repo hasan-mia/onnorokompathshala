@@ -23,7 +23,7 @@ const AddVideo = () => {
         }
 
         // Send to your database 
-        fetch('http://localhost:5001/video', {
+        fetch('https://onnorokompathshala.herokuapp.com/video', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',

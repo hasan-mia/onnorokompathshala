@@ -22,7 +22,7 @@ const AllVideo = () => {
     }
     // Delete handler
     const handleDelete = (id) => {
-        fetch(`http://localhost:5001/video/${id}`, {
+        fetch(`https://onnorokompathshala.herokuapp.com/video/${id}`, {
             method: 'DELETE',
             headers: {
                 'content-type': 'application/json',

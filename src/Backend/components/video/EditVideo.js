@@ -23,7 +23,7 @@ const EditVideo = () => {
             apiKey: data.apiKey,
         }
         // Send to your database 
-        fetch(`http://localhost:5001/video/${id}`, {
+        fetch(`https://onnorokompathshala.herokuapp.com/video/${id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json',

@@ -4,7 +4,7 @@ const useVideo = (id) => {
     const [video, setVideo] = useState([])
     const [isLoad, setIsLoad] = useState(true)
 	useEffect(() => {
-		fetch(`http://localhost:5001/video/${id}`)
+		fetch(`https://onnorokompathshala.herokuapp.com/video/${id}`)
 		.then((res) => res.json())
         .then((data) => setVideo(data, setIsLoad(false)));
     }, [isLoad])

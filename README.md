@@ -1,8 +1,14 @@
 # Onnorokom Pathshala
 
-## Onnorokom Pathshala is online video class from youtube.
+## onnorokompathshala is youtube video sharing website.
 
 ### [Live Site](https://onnorokompathshala.vercel.app/).
+
+## Serverside Link : 
+### [Heroku Link](https://onnorokompathshala.herokuapp.com/).
+### [Render Link](https://onnorokompathshala.onrender.com).
+
+
 
 ### Getting Started with Create React App
 
