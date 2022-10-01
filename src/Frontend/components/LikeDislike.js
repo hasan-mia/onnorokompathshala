@@ -4,7 +4,7 @@ import { FcViewDetails } from 'react-icons/fc';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../Firebase/Firebase';
 import { toast } from 'react-toastify';
-import { Tooltip } from 'flowbite-react';
+import { Dropdown, Tooltip } from 'flowbite-react';
 
 const LikeDislike = ({ videoId, apiKey, likes, dislikes }) => {
     const [user] = useAuthState(auth);
@@ -24,7 +24,7 @@ const LikeDislike = ({ videoId, apiKey, likes, dislikes }) => {
     const handleLike = (videoId, data) => {
         if (user) {
             const video = {
-                videoId : videoId,
+                videoId: videoId,
                 likes: data,
             }
             //====Like & Dislike Conditon=====
@@ -43,12 +43,12 @@ const LikeDislike = ({ videoId, apiKey, likes, dislikes }) => {
                     .then(data => console.log(data))
                 // likes.push(data)  // added item to array
                 // console.log('update array:', likes)
-                toast.success('Liked')
+                // toast.success('Liked')
             }
             else if (liked) {
                 let likeRemove = likes.filter(item => item !== `${user?.displayName}`);
-                console.log('Remove liked:', likeRemove)
-                toast.success('Unliked');
+                // console.log('Remove liked:', likeRemove)
+                // toast.success('Unliked');
             }
 
         }
@@ -61,7 +61,7 @@ const LikeDislike = ({ videoId, apiKey, likes, dislikes }) => {
     const handleDisLike = (videoId, data) => {
         if (user) {
             const video = {
-                videoId : videoId,
+                videoId: videoId,
                 dislikes: data,
             }
             //====Like & Dislike Conditon=====
@@ -80,12 +80,12 @@ const LikeDislike = ({ videoId, apiKey, likes, dislikes }) => {
                     .then(data => console.log(data))
                 // likes.push(data)  // added item to array
                 // console.log('update array:', likes)
-                toast.success('dislike')
+                // toast.success('dislike')
             }
             else if (disliked) {
                 let dislikeRemove = likes.filter(item => item !== `${user?.displayName}`);
-                console.log('Remove liked:', dislikeRemove)
-                toast.success('Undislike');
+                // console.log('Remove liked:', dislikeRemove)
+                // toast.success('Undislike');
             }
 
         }
@@ -96,10 +96,7 @@ const LikeDislike = ({ videoId, apiKey, likes, dislikes }) => {
 
     // Liked View Details
     const viewDetails = () => {
-        if (user) {
-            toast.success('success')
-        }
-        else {
+        if (!user) {
             toast.error('Sorry! 🥺 you have to login');
         }
     }
@@ -111,14 +108,25 @@ const LikeDislike = ({ videoId, apiKey, likes, dislikes }) => {
             <div className="flex justify-between border-t border-gray-200 pt-2">
                 <div className='flex items-center gap-4 lg:gap-10 px-2'>
                     <Tooltip content="Likes" style="light">
-                        <button onClick={() => { handleLike(videoId,`${user?.displayName}`) }} className='flex items-center gap-2'><span className='text-xl'>{likes?.length}</span> <HiOutlineThumbUp className='text-2xl' /> </button>
+                        <button onClick={() => { handleLike(videoId, `${user?.displayName}`) }} className='flex items-center gap-2'><span className='text-xl'>{likes?.length}</span> <HiOutlineThumbUp className='text-2xl' /> </button>
                     </Tooltip>
                     <Tooltip content="Dislikes" style="light">
-                        <button onClick={() => { handleDisLike(videoId,`${user?.displayName}`) }} className='flex items-center gap-2'><span className='text-xl'>{dislikes?.length}</span> <HiOutlineThumbDown className='text-2xl' /> </button>
+                        <button onClick={() => { handleDisLike(videoId, `${user?.displayName}`) }} className='flex items-center gap-2'><span className='text-xl'>{dislikes?.length}</span> <HiOutlineThumbDown className='text-2xl' /> </button>
                     </Tooltip>
                 </div>
                 <Tooltip content="Details" style="light">
-                    <button onClick={() => { viewDetails() }} className='flex items-center gap-2'><span className='text-xl'><FcViewDetails className='text-2xl text-gray-600' /></span></button>
+                    <button onClick={viewDetails}>
+                        <span className='text-xl'><FcViewDetails className='text-2xl ml-1' /></span>
+                        <Dropdown inline={true}>
+                            {
+                                user &&
+                                <Dropdown.Item>
+                                    <p className='w-full lg:w-60'>{likes.join(', ')}</p>
+
+                                </Dropdown.Item>
+                            }
+                        </Dropdown>
+                    </button>
                 </Tooltip>
             </div>
         </div>

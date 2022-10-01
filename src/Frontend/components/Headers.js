@@ -23,7 +23,7 @@ const Headers = () => {
                         <TextInput type="text" placeholder="search here.." required={true} icon={VscSearch} />
                     </div>
                     <Dropdown inline={true}
-                        label={<Avatar alt="User settings" icon={HiUser} rounded={true} />}
+                        label={<Avatar img={user?.photoURL} icon={HiUser} rounded={true} />}
                     >
                         <Dropdown.Item>
                             {

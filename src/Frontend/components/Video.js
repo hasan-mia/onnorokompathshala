@@ -25,7 +25,7 @@ const Video = () => {
 
   return (
     <>
-      {videos.map(video =>
+      {videos.map((video) =>
         //onClick={()=>singleVideo(`/video/${video._id}`)}
         <div key={video.videoId} className='grid bg-gray-100 p-2 relative rounded-md'>
           <YouTube videoId={video.videoId} opts={opts} onReady={onPlayerReady} />
