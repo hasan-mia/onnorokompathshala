@@ -7,13 +7,35 @@ const Footers = () => {
         <footer>
             <Footer container={true}>
                 <div className="w-full">
-                    <div className="grid w-full justify-between sm:flex sm:justify-between md:flex md:grid-cols-1">
+                    <div className="flex flex-col lg:flex-row w-full justify-between gap-4">
                         <div className='w-48'>
                             <img href="#" src={logo} className="w-full" alt="OnnorokomPathshala Logo"/>
                         </div>
-                        <div className="grid grid-cols-2 gap-8 sm:mt-4 sm:grid-cols-3 sm:gap-6">
+                        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7">
                             <div>
-                                <Footer.Title title="about" />
+                                <Footer.Title title="Home" />
+                                <Footer.LinkGroup col={true}>
+                                    <Footer.Link href="#">
+                                        OnnorokomPathshala
+                                    </Footer.Link>
+                                    <Footer.Link href="#">
+                                        Tailwind CSS
+                                    </Footer.Link>
+                                </Footer.LinkGroup>
+                            </div>
+                            <div>
+                                <Footer.Title title="About" />
+                                <Footer.LinkGroup col={true}>
+                                    <Footer.Link href="#">
+                                        Github
+                                    </Footer.Link>
+                                    <Footer.Link href="#">
+                                        Discord
+                                    </Footer.Link>
+                                </Footer.LinkGroup>
+                            </div>
+                            <div>
+                                <Footer.Title title="Contact" />
                                 <Footer.LinkGroup col={true}>
                                     <Footer.Link href="#">
                                         OnnorokomPathshala
@@ -25,6 +47,28 @@ const Footers = () => {
                             </div>
                             <div>
                                 <Footer.Title title="Follow us" />
+                                <Footer.LinkGroup col={true}>
+                                    <Footer.Link href="#">
+                                        Github
+                                    </Footer.Link>
+                                    <Footer.Link href="#">
+                                        Discord
+                                    </Footer.Link>
+                                </Footer.LinkGroup>
+                            </div>
+                            <div>
+                                <Footer.Title title="Books" />
+                                <Footer.LinkGroup col={true}>
+                                    <Footer.Link href="#">
+                                        OnnorokomPathshala
+                                    </Footer.Link>
+                                    <Footer.Link href="#">
+                                        Tailwind CSS
+                                    </Footer.Link>
+                                </Footer.LinkGroup>
+                            </div>
+                            <div>
+                                <Footer.Title title="Business" />
                                 <Footer.LinkGroup col={true}>
                                     <Footer.Link href="#">
                                         Github

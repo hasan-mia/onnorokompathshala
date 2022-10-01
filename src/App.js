@@ -14,6 +14,7 @@ import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import SigngleVideo from "./Frontend/components/SigngleVideo";
 import EditVideo from "./Backend/components/video/EditVideo";
+import Signup from "./Auth/Signup";
 // video context
 export const videoContext = createContext();
 
@@ -29,8 +30,8 @@ function App() {
         ==================================*/}
         <Route path="/" element={<Home />} />
         <Route path="/video/:id" element={<SigngleVideo />} />
+        <Route path="/register" element={<Signup />} />
         <Route path="/login" element={<Signin />} />
-
 
         {/* =================================
                     Backend Routes

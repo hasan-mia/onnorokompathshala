@@ -8,13 +8,8 @@ import { Tooltip } from 'flowbite-react';
 
 const LikeDislike = ({ videoId, apiKey, likes, dislikes }) => {
     const [user] = useAuthState(auth);
+    // set youtube data from api
     const [btnData, setBtnData] = useState();
-    // like state
-    // const [like, setLikes] = useState([0]);
-    // dislike state
-    // const [disLike, setDislike] = useState([0]);
-
-    // console.log(likes, dislikes)
     //fetch youtube data
     const url = `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&key=${apiKey}&fields=items(id,snippet(channelId,title,categoryId),statistics)&part=snippet,statistics`;
     useEffect(() => {
@@ -26,39 +21,59 @@ const LikeDislike = ({ videoId, apiKey, likes, dislikes }) => {
     }, []);
 
     // Liked Handler
-    const handleLike = (data) => {
+    const handleLike = (videoId, data) => {
         if (user) {
-            // //====Condition Prctice=====
-            // let like = likes.find(item => item == `${user?.displayName}`) // check item availability on array
-            // console.log('Match Name:', like)
-            // if (like) {
-            //     let likeRemove = likes.filter(item => item !== `${user?.displayName}`);
-            //     console.log('Remove liked:', likeRemove)
-            //     toast.success('Unliked');
-            // }else{
-            //     likes.push(data)  // added item to array
-            //     console.log('update array:', likes)
-            // }
+            const video = {
+                likes: data,
+            }
+            //====Like & Dislike Conditon=====
+            let liked = likes.find(item => item == `${user?.displayName}`) // check user available or not on array
+            // console.log('Match Name:', liked)
+            if (!liked) {
+                // Send to your database 
+                fetch(`http://localhost:5001/video/${videoId}/like`, {
+                    method: 'PUT',
+                    headers: {
+                        'content-type': 'application/json',
+                        authorization: `${user?.email} ${localStorage.getItem('accessToken')}`
+                    },
+                    body: JSON.stringify(video)
+                })
+                    .then(res => res.json())
+                    .then(data => console.log(data))
+                // likes.push(data)  // added item to array
+                // console.log('update array:', likes)
+                toast.success('Liked')
+            }
+            else if (liked) {
+                let likeRemove = likes.filter(item => item !== `${user?.displayName}`);
+                console.log('Remove liked:', likeRemove)
+                toast.success('Unliked');
+            }
+
         }
         else {
             toast.error('Sorry! 🥺 you have to login');
         }
     }
 
-    // Liked Handler
-    const handleDisLike = () => {
+    // Dislike Handler
+    const handleDisLike = (data) => {
         if (user) {
-            // //====Condition Prctice=====
-            // let like = likes.find(item => item == `${user?.displayName}`) // check item availability on array
-            // console.log('Match Name:', like)
-            // if (like) {
-            //     let likeRemove = likes.filter(item => item !== `${user?.displayName}`);
-            //     console.log('Remove liked:', likeRemove)
-            //     toast.success('Unliked');
-            // }else{
-            //     likes.push(data)  // added item to array
-            //     console.log('update array:', likes)
-            // }
+            //====Like & Dislike Conditon=====
+            let disliked = dislikes.find(item => item == `${user?.displayName}`) // check user available or not on array
+            console.log('Match Name:', disliked)
+            if (!disliked) {
+                dislikes.push(data)  // added item to array
+                console.log('update array:', dislikes)
+                toast.success('dislike')
+            }
+            else if (disliked) {
+                let dislikeRemove = dislikes.filter(item => item !== `${user?.displayName}`);
+                console.log('Remove dislike:', dislikeRemove)
+                toast.success('Undislike');
+            }
+
         }
         else {
             toast.error('Sorry! 🥺 you have to login');
@@ -75,8 +90,6 @@ const LikeDislike = ({ videoId, apiKey, likes, dislikes }) => {
         }
     }
 
-
-
     return (
         <div className="grid">
             <h2 className='text-sm text-gray-700 font-semibold p-2'>{btnData?.snippet.title}</h2>
@@ -84,7 +97,7 @@ const LikeDislike = ({ videoId, apiKey, likes, dislikes }) => {
             <div className="flex justify-between border-t border-gray-200 pt-2">
                 <div className='flex items-center gap-4 lg:gap-10 px-2'>
                     <Tooltip content="Likes" style="light">
-                        <button onClick={() => { handleLike(`${user?.displayName}`) }} className='flex items-center gap-2'><span className='text-xl'>{likes?.length}</span> <HiOutlineThumbUp className='text-2xl' /> </button>
+                        <button onClick={() => { handleLike(videoId,`${user?.displayName}`) }} className='flex items-center gap-2'><span className='text-xl'>{likes?.length}</span> <HiOutlineThumbUp className='text-2xl' /> </button>
                     </Tooltip>
                     <Tooltip content="Dislikes" style="light">
                         <button onClick={() => { handleDisLike(`${user?.displayName}`) }} className='flex items-center gap-2'><span className='text-xl'>{dislikes?.length}</span> <HiOutlineThumbDown className='text-2xl' /> </button>
