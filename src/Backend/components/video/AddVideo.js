@@ -50,7 +50,7 @@ const AddVideo = () => {
         <div className='my-4 px-0 lg:px-2'>
             <h1 className='text-center text-md lg:text-2xl py-2 font-semibold uppercase text-white bg-purple-600'>Add Video</h1>
             <form onSubmit={handleSubmit(videoAdded)} className="flex flex-col gap-2 my-4">
-                <input type="text" placeholder='Add title' className='p-2'  {...register("title")} />
+                <input type="text" placeholder='Add title' className='p-2'  {...register("title")} required/>
                 <textarea type="text" rows={6} className='p-4' placeholder='Description'  {...register("description")}></textarea>
                 <div className='grid grid-cols-1 lg:grid-cols-2 grid-reverse gap-2'>
                     <input type="text" placeholder='Video Id' className='p-2'  {...register("videoId")} required />

@@ -23,12 +23,12 @@ export const videoContext = createContext();
 
 function App() {
   // all videos
-  const { videos, isLoad, setIsLoad } = useVideos();
+  const { videos, isLoad } = useVideos();
   if (isLoad) {
     return <Loader></Loader>
   }
   return (
-    <videoContext.Provider value={{ videos, isLoad, setIsLoad }}>
+    <videoContext.Provider value={{ videos, isLoad}}>
       <Headers></Headers>
       <Routes>
         {/* =================================

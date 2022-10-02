@@ -9,7 +9,7 @@ const useVideos = () => {
         .then((data) => setVideos(data, setIsLoad(false)));
     }, [isLoad])
 
-    return {videos, setVideos, isLoad, setIsLoad}
+    return {videos, isLoad}
 };
 
 export default useVideos;

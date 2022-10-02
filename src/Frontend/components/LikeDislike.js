@@ -7,11 +7,10 @@ import { toast } from 'react-toastify';
 import { Tooltip } from 'flowbite-react';
 import { useNavigate } from 'react-router-dom';
 
-const LikeDislike = ({ id, videoId, apiKey, likes, dislikes, author }) => {
+const LikeDislike = ({ id, videoId, apiKey, title, likes, dislikes, author }) => {
     const [user] = useAuthState(auth);
     // set youtube data from api
-    const [btnData, setBtnData] = useState();
-    const [load, setLoad] = useState(true);
+    const [btnData, setBtnData] = useState('');
 
     // navigate to details
     const videoDetails = useNavigate();
@@ -21,10 +20,18 @@ const LikeDislike = ({ id, videoId, apiKey, likes, dislikes, author }) => {
     useEffect(() => {
         fetch(url)
             .then(res => res.json())
-            .then(data => setBtnData(data.items[0], setLoad(false)))
+            .then(data => {
+                if (data.items[0]) {
+                    setBtnData(data.items[0])
+                }
+                else {
+                    toast.error(`${data.error.message}`);
+                }
+            })
+        // ata.error.message
         // data.items[0].snippet.title
         // data.items[0].statistics.likeCount/favoriteCount/commentCount/viewCount
-    }, [url, btnData, load]);
+    }, [url]);
 
     // Liked Handler
     const handleLike = (videoId, data) => {
@@ -99,7 +106,7 @@ const LikeDislike = ({ id, videoId, apiKey, likes, dislikes, author }) => {
 
     return (
         <div className="grid">
-            <h2 className='text-sm text-gray-700 font-semibold p-2'>{btnData?.snippet.title}</h2>
+            <h2 className='text-sm text-gray-700 font-semibold p-2'>{btnData ? btnData?.snippet.title : title}</h2>
             {/* button */}
             <div className="flex justify-between border-t border-gray-200 pt-2">
                 <div className='flex items-center gap-4 lg:gap-2'>
@@ -119,7 +126,7 @@ const LikeDislike = ({ id, videoId, apiKey, likes, dislikes, author }) => {
                                 <p className='text-lg'>{author}</p>
                             </div>
                             <Tooltip content='Details' style="light">
-                                <button onClick={()=> videoDetails(`/details/${id}`)}>
+                                <button onClick={() => videoDetails(`/details/${id}`)}>
                                     <span className='text-xl'><FcViewDetails className='text-2xl ml-1' /></span>
                                 </button>
                             </Tooltip>
