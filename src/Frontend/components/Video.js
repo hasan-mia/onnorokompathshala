@@ -2,11 +2,12 @@ import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import YouTube from 'react-youtube';
 import { videoContext } from '../../App';
+import Loader from '../../Shared/Loader';
 import LikeDislike from './LikeDislike';
 import View from './View';
 
 const Video = () => {
-  const { videos } = useContext(videoContext);
+  const { videos, isLoad } = useContext(videoContext);
   const singleVideo = useNavigate();
 
   const onPlayerReady = (event) => {
@@ -22,7 +23,9 @@ const Video = () => {
       autoplay: 1,
     },
   };
-
+  if (isLoad) {
+    return <Loader></Loader>
+  }
   return (
     <>
       {videos.map((video) =>

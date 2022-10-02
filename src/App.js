@@ -15,12 +15,16 @@ import 'react-toastify/dist/ReactToastify.css';
 import SigngleVideo from "./Frontend/components/SigngleVideo";
 import EditVideo from "./Backend/components/video/EditVideo";
 import Signup from "./Auth/Signup";
+import Loader from "./Shared/Loader";
 // video context
 export const videoContext = createContext();
 
 function App() {
   // all videos
   const {videos, isLoad, setIsLoad}=useVideos();
+  if (isLoad) {
+    return <Loader></Loader>
+  }
   return (
     <videoContext.Provider value={{videos, isLoad, setIsLoad}}>
       <Headers></Headers>

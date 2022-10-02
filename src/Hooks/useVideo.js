@@ -7,7 +7,7 @@ const useVideo = (id) => {
 		fetch(`https://onnorokompathshala.herokuapp.com/video/${id}`)
 		.then((res) => res.json())
         .then((data) => setVideo(data, setIsLoad(false)));
-    }, [isLoad])
+    }, [id, isLoad])
 
     return {video, setVideo, isLoad, setIsLoad}
 };

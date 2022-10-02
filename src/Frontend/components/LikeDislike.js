@@ -10,15 +10,16 @@ const LikeDislike = ({ videoId, apiKey, likes, dislikes }) => {
     const [user] = useAuthState(auth);
     // set youtube data from api
     const [btnData, setBtnData] = useState();
+    const [load, setLoad] = useState(true)
     //fetch youtube data
     const url = `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&key=${apiKey}&fields=items(id,snippet(channelId,title,categoryId),statistics)&part=snippet,statistics`;
     useEffect(() => {
         fetch(url)
             .then(res => res.json())
-            .then(data => setBtnData(data.items[0]))
+            .then(data => setBtnData(data.items[0], setLoad(false)))
         // data.items[0].snippet.title
         // data.items[0].statistics.likeCount/favoriteCount/commentCount/viewCount
-    }, []);
+    }, [btnData, load]);
 
     // Liked Handler
     const handleLike = (videoId, data) => {
@@ -29,7 +30,6 @@ const LikeDislike = ({ videoId, apiKey, likes, dislikes }) => {
             }
             //====Like & Dislike Conditon=====
             let liked = likes.find(item => item == `${user?.displayName}`) // check user available or not on array
-            // console.log('Match Name:', liked)
             if (!liked) {
                 // Send to your database 
                 fetch(`https://onnorokompathshala.herokuapp.com/video/${videoId}/like`, {
@@ -41,14 +41,10 @@ const LikeDislike = ({ videoId, apiKey, likes, dislikes }) => {
                 })
                     .then(res => res.json())
                     .then(data => console.log(data))
-                // likes.push(data)  // added item to array
-                // console.log('update array:', likes)
-                // toast.success('Liked')
+                toast.success('thanks for Like')
             }
             else if (liked) {
-                let likeRemove = likes.filter(item => item !== `${user?.displayName}`);
-                // console.log('Remove liked:', likeRemove)
-                // toast.success('Unliked');
+                toast.success('You already like it');
             }
 
         }
@@ -66,7 +62,6 @@ const LikeDislike = ({ videoId, apiKey, likes, dislikes }) => {
             }
             //====Like & Dislike Conditon=====
             let disliked = dislikes.find(item => item == `${user?.displayName}`) // check user available or not on array
-            // console.log('Match Name:', liked)
             if (!disliked) {
                 // Send to your database 
                 fetch(`https://onnorokompathshala.herokuapp.com/video/${videoId}/dislike`, {
@@ -78,14 +73,10 @@ const LikeDislike = ({ videoId, apiKey, likes, dislikes }) => {
                 })
                     .then(res => res.json())
                     .then(data => console.log(data))
-                // likes.push(data)  // added item to array
-                // console.log('update array:', likes)
-                // toast.success('dislike')
+                toast.success('You are welcome! 🥺')
             }
             else if (disliked) {
-                let dislikeRemove = likes.filter(item => item !== `${user?.displayName}`);
-                // console.log('Remove liked:', dislikeRemove)
-                // toast.success('Undislike');
+                toast.success('🥺! You are already disliked');
             }
 
         }
@@ -108,29 +99,36 @@ const LikeDislike = ({ videoId, apiKey, likes, dislikes }) => {
             <div className="flex justify-between border-t border-gray-200 pt-2">
                 <div className='flex items-center gap-4 lg:gap-10 px-2'>
                     <Tooltip content="Likes" style="light">
-                        <button onClick={() => { handleLike(videoId, `${user?.displayName}`) }} className='flex items-center gap-2'><span className='text-xl'>{likes?.length}</span> <HiOutlineThumbUp className='text-2xl' /> </button>
+                        <button onClick={() => handleLike(videoId, `${user?.displayName}`)} className='flex items-center gap-2'><span className='text-xl'>{likes?.length}</span> <HiOutlineThumbUp className='text-2xl' /> </button>
                     </Tooltip>
                     <Tooltip content="Dislikes" style="light">
-                        <button onClick={() => { handleDisLike(videoId, `${user?.displayName}`) }} className='flex items-center gap-2'><span className='text-xl'>{dislikes?.length}</span> <HiOutlineThumbDown className='text-2xl' /> </button>
+                        <button onClick={() => handleDisLike(videoId, `${user?.displayName}`)} className='flex items-center gap-2'><span className='text-xl'>{dislikes?.length}</span> <HiOutlineThumbDown className='text-2xl' /> </button>
                     </Tooltip>
                 </div>
-                <Tooltip content="Details" style="light">
-                    <button onClick={viewDetails}>
-                        <span className='text-xl'><FcViewDetails className='text-2xl ml-1' /></span>
-                        <Dropdown inline={true}>
-                            {
-                                user &&
-                                <Dropdown.Item>
-                                    <p className='w-full lg:w-60'>{likes.join(', ')}</p>
-
-                                </Dropdown.Item>
-                            }
-                        </Dropdown>
-                    </button>
-                </Tooltip>
+                {
+                    user ?
+                        <Tooltip content={likes.join(', ')} style="light">
+                            <button>
+                                <span className='text-xl'><FcViewDetails className='text-2xl ml-1' /></span>
+                            </button>
+                        </Tooltip>
+                        :
+                        <button onClick={viewDetails}>
+                            <span className='text-xl'><FcViewDetails className='text-2xl ml-1' /></span>
+                        </button>
+                }
             </div>
         </div>
     );
 };
 
 export default LikeDislike;
+
+// //====Like & Dislike Conditon=====
+// let liked = likes.find(item => item == `${user?.displayName}`) // check user available or not on array
+// console.log('Match Name:', liked)
+// likes.push(data)  // added item to array
+// console.log('update array:', likes)
+//let likeRemove = likes.filter(item => item !== `${user?.displayName}`);
+// console.log('Remove liked:', likeRemove)
+// toast.success('Unliked');
