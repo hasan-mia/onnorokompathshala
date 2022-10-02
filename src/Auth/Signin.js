@@ -1,18 +1,70 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import SocialLogin from './SocialLogin';
 import logo from '.././Frontend/assets/logo.png'
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import Loader from '../Shared/Loader';
+import auth from '../Firebase/Firebase';
+import { toast } from 'react-toastify';
+import useToken from './useToken';
 
 const Signin = () => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [signInWithEmailAndPassword, user, loading, error,] = useSignInWithEmailAndPassword(auth);
+    const [token] = useToken(user);
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/dashboard";
+    
+    useEffect(() => {
+        if (token) {
+            navigate(from, { replace: true });
+            if (token) {
+                toast.success("Welcome Back");
+            } else {
+                toast.success("user not created");
+            }
+        }
+
+    }, [token, from, navigate])
+
+    useEffect(() => {
+        if (error) {
+            switch (error?.code) {
+                case "auth/invalid-email":
+                    toast.error("Please provide a valid email");
+                    break;
+                case "auth/invalid-password":
+                    toast.error("Wrong password!!");
+                    break;
+                default:
+                    toast.error("Something went wrong");
+            }
+        }
+    }, [error]);
+
+    if (loading) {
+        return <Loader></Loader>;
+    }
+    if(user){
+        <Navigate to="/dashboard" state={{ from: location }} replace />
+    }
     return (
         <main className='min-h-screen'>
             <div className="flex flex-col items-center justify-center gap-2 px-2">
                 <img src={logo} alt="onnorokom logo" className='text-center w-28' />
                 <p className='border-t pt-1 border-gray-200 text-3xl text-purple-600 font-semibold'>Login</p>
                 <form className="flex flex-col gap-2 w-full px-4 lg:w-96">
-                    <input type="email" placeholder='Email' className='p-2 rounded-sm' />
-                    <input type="password" placeholder='Password' className='p-2 rounded-sm' />
-                    <button className='text-xl px-4 py-1 bg-purple-500 rounded-sm text-white'>Login</button>
+                    <input type="email" placeholder='Email' className='p-2 rounded-sm'
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <input type="password" placeholder='Password' className='p-2 rounded-sm'
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <button onClick={() => signInWithEmailAndPassword(email, password)} className='text-xl px-4 py-1 bg-purple-500 rounded-sm text-white'>Login</button>
                 </form>
                 <p>Do you need account?<Link to="/register" className='text-red-500'> Click here</Link></p>
             </div>

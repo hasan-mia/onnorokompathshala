@@ -16,6 +16,7 @@ import SigngleVideo from "./Frontend/components/SigngleVideo";
 import EditVideo from "./Backend/components/video/EditVideo";
 import Signup from "./Auth/Signup";
 import Loader from "./Shared/Loader";
+import UpdateName from "./Auth/UpdateName";
 // video context
 export const videoContext = createContext();
 
@@ -36,6 +37,7 @@ function App() {
         <Route path="/video/:id" element={<SigngleVideo />} />
         <Route path="/register" element={<Signup />} />
         <Route path="/login" element={<Signin />} />
+        <Route path="/update" element={<UpdateName />} />
 
         {/* =================================
                     Backend Routes

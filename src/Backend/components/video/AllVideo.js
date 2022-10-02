@@ -14,12 +14,8 @@ const AllVideo = () => {
     const updateVideo = useNavigate();
     const { videos, isLoad, setIsLoad } = useContext(videoContext);
     // filter video by user
-    const yourVideo = videos?.filter(item => item?.email == user?.email)
+    const yourVideo = videos?.filter(item => item?.email === user?.email)
 
-    // Edit handler
-    const handleEdit = (id) => {
-
-    }
     // Delete handler
     const handleDelete = (id) => {
         fetch(`https://onnorokompathshala.herokuapp.com/video/${id}`, {
@@ -44,14 +40,14 @@ const AllVideo = () => {
         <div className='my-4 px-0 lg:px-2'>
             <h1 className='text-center text-md lg:text-2xl py-2 font-semibold uppercase text-white bg-purple-600'>Your All Video</h1>
             {
-                yourVideo.length == 0 ?
+                yourVideo.length === 0 ?
                     // if video array is null
                     <div className='px-2'>
                         <h1 className='text-center text-3xl text-red-600 pt-6'>You don't upload video yet</h1>
                         <p className='text-purple-500 text-2xl font-semibold flex items-center gap-2'><BsArrowRight/> Before you start</p>
                         <p className='flex items-center gap-2'><BsArrowRight/>You need a Google Account to access the Google API Console, request an API key, and register your application.</p>
 
-                        <p className='flex items-center gap-2'><BsArrowRight/>Create a project in the <a href='https://console.developers.google.com/' target="_blank" className='text-blue-500 font-semibold'>Google Developers Console</a> and <a href='https://developers.google.com/youtube/registering_an_application' target="_blank" className='text-blue-500 font-semibold'>obtain authorization credentials</a> so your application can submit API requests.</p>
+                        <p className='flex items-center gap-2'><BsArrowRight/>Create a project in the <a href='https://console.developers.google.com/' target="_blank" className='text-blue-500 font-semibold'>Google Developers Console</a> and <a href='https://console.cloud.google.com/apis/credentials' target="_blank" className='text-blue-500 font-semibold'>obtain authorization credentials</a> so your application can submit API requests.</p>
 
                         <p className='flex items-center gap-2'><BsArrowRight/>After creating your project, make sure the YouTube Data API is one of the services that your application is registered to use:</p>
 

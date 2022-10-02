@@ -4,7 +4,7 @@ import { FcViewDetails } from 'react-icons/fc';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../Firebase/Firebase';
 import { toast } from 'react-toastify';
-import { Dropdown, Tooltip } from 'flowbite-react';
+import { Tooltip } from 'flowbite-react';
 
 const LikeDislike = ({ videoId, apiKey, likes, dislikes }) => {
     const [user] = useAuthState(auth);
@@ -19,7 +19,7 @@ const LikeDislike = ({ videoId, apiKey, likes, dislikes }) => {
             .then(data => setBtnData(data.items[0], setLoad(false)))
         // data.items[0].snippet.title
         // data.items[0].statistics.likeCount/favoriteCount/commentCount/viewCount
-    }, [btnData, load]);
+    }, [url,btnData, load]);
 
     // Liked Handler
     const handleLike = (videoId, data) => {
@@ -29,7 +29,7 @@ const LikeDislike = ({ videoId, apiKey, likes, dislikes }) => {
                 likes: data,
             }
             //====Like & Dislike Conditon=====
-            let liked = likes.find(item => item == `${user?.displayName}`) // check user available or not on array
+            let liked = likes.find(item => item === `${user?.displayName}`) // check user available or not on array
             if (!liked) {
                 // Send to your database 
                 fetch(`https://onnorokompathshala.herokuapp.com/video/${videoId}/like`, {
@@ -61,7 +61,7 @@ const LikeDislike = ({ videoId, apiKey, likes, dislikes }) => {
                 dislikes: data,
             }
             //====Like & Dislike Conditon=====
-            let disliked = dislikes.find(item => item == `${user?.displayName}`) // check user available or not on array
+            let disliked = dislikes.find(item => item === `${user?.displayName}`) // check user available or not on array
             if (!disliked) {
                 // Send to your database 
                 fetch(`https://onnorokompathshala.herokuapp.com/video/${videoId}/dislike`, {

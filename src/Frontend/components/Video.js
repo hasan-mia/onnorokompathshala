@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
 import YouTube from 'react-youtube';
 import { videoContext } from '../../App';
 import Loader from '../../Shared/Loader';
@@ -8,9 +7,7 @@ import View from './View';
 
 const Video = () => {
   const { videos, isLoad } = useContext(videoContext);
-  const singleVideo = useNavigate();
-
-  const onPlayerReady = (event) => {
+    const onPlayerReady = (event) => {
     // access to player in all event handlers via event.target
     event.target.stopVideo();
   }
@@ -33,8 +30,8 @@ const Video = () => {
         <div key={video.videoId} className='grid bg-gray-100 p-2 relative rounded-md'>
           <YouTube videoId={video.videoId} opts={opts} onReady={onPlayerReady} />
           <View
-            videoId={video.videoId}
-            apiKey={video.apiKey}
+            videoId={video?.videoId}
+            apiKey={video?.apiKey}
           />
           <LikeDislike
             videoId={video.videoId}
