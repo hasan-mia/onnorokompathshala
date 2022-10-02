@@ -7,7 +7,7 @@ import View from './View';
 
 const Video = () => {
   const { videos, isLoad } = useContext(videoContext);
-    const onPlayerReady = (event) => {
+  const onPlayerReady = (event) => {
     // access to player in all event handlers via event.target
     event.target.stopVideo();
   }
@@ -34,10 +34,12 @@ const Video = () => {
             apiKey={video?.apiKey}
           />
           <LikeDislike
-            videoId={video.videoId}
-            apiKey={video.apiKey}
-            likes={video.likes}
-            dislikes={video.dislikes}
+            id={video?._id}
+            videoId={video?.videoId}
+            apiKey={video?.apiKey}
+            likes={video?.likes}
+            dislikes={video?.dislikes}
+            author={video?.author}
           />
         </div>
       )}
