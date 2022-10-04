@@ -20,14 +20,7 @@ const LikeDislike = ({ id, videoId, apiKey, title, likes, dislikes, author }) =>
     useEffect(() => {
         fetch(url)
             .then(res => res.json())
-            .then(data => {
-                if (data.items[0]) {
-                    setBtnData(data.items[0])
-                }
-                else {
-                    toast.error(`${data.error.message}`);
-                }
-            })
+            .then(data => setBtnData(data.items[0]))
         // ata.error.message
         // data.items[0].snippet.title
         // data.items[0].statistics.likeCount/favoriteCount/commentCount/viewCount
